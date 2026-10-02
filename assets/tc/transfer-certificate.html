@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transfer Certificates - Little Angels H.S. School</title>
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../vendor/aos/aos.css" rel="stylesheet">
+  <link href="../css/main.css" rel="stylesheet">
+  <style>
+    body{background:#f8f9fa}.tc-result{min-height:100vh;padding:90px 20px 60px}.tc-card{max-width:1000px;margin:auto;background:#fff;border-radius:18px;padding:40px;box-shadow:0 10px 35px rgba(0,0,0,.08)}.tc-item{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 0;border-bottom:1px solid #eee}.tc-item:last-child{border-bottom:0}.tc-item strong{word-break:break-word}.empty{text-align:center;padding:30px}.back{margin-bottom:25px}
+  </style>
+</head>
+<body>
+<main class="tc-result">
+  <div class="tc-card">
+    <a href="../../tc.html" class="btn btn-outline-primary back">← Back to Transfer Certificates</a>
+    <h1 id="title">Transfer Certificates</h1>
+    <p id="subtitle">Select a certificate below to open the PDF.</p>
+    <div id="list"></div>
+  </div>
+</main>
+<script>
+const certificates = {"Class1": ["image/Class1/MRIDUL CHAWARE CLASS I.pdf", "image/Class1/SHIVANI 1 PASS.pdf", "image/Class1/SOUVIK MIDYA CLASS 1 PASS.pdf"], "Class10": ["image/Class10/HARDIK BILWALIYA X-A.pdf"], "Class11": ["image/Class11/RAJVANSH SINGH PARIHAR-XI.pdf"], "Class12": ["image/Class12/RUDRA KANOJIYA XII- SCI.pdf"], "Class2": ["image/Class2/MAHAK DANGI CLASS II-B.pdf", "image/Class2/PRATHAMESH TIWARI II-A.pdf"], "Class3": ["image/Class3/ANVAY CHOUDHARY CLASS III-A.pdf"], "Class5": ["image/Class5/AARADHYA PRAJAPATI V-B.pdf", "image/Class5/BHAVYA VERMA CLASS V.pdf", "image/Class5/LAVNYA VIJAY BHAGAT CLASS -V.pdf"], "Class6": ["image/Class6/KAVISH YADAV VI-A.pdf"], "Class7": ["image/Class7/AARYAN VII PASS.pdf", "image/Class7/ANSH TIWARI CLASS VII-A.pdf"], "Class8": ["image/Class8/ARUSH YADAV VIII-B.pdf", "image/Class8/NAVDEEP NAGAL-VIII.pdf"], "Class9": ["image/Class9/ANMOL VERMA CLASS IX.pdf", "image/Class9/RAJU KUMAR CLASS - IX.pdf", "image/Class9/ROSHAN SINGH CLASS IX-A.pdf"], "UKG": ["image/UKG/AAYUSHI RAJPUT UK.G..pdf", "image/UKG/ANKAN RAJPUT UK.-B.pdf"]};
+const params = new URLSearchParams(location.search);
+const selected = params.get('class') || '';
+const title = document.getElementById('title');
+const subtitle = document.getElementById('subtitle');
+const list = document.getElementById('list');
+const files = certificates[selected] || [];
+if (selected) {
+  title.textContent = 'Transfer Certificates - ' + selected.replace('Class','Class ');
+}
+if (!files.length) {
+  list.innerHTML = '<div class="empty">No certificate records are available for this class.</div>';
+} else {
+  list.innerHTML = files.map(function(path){
+    const file = decodeURIComponent(path.split('/').pop());
+    return '<div class="tc-item"><strong>' + file.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</strong><a class="btn btn-primary" target="_blank" rel="noopener" href="' + encodeURI(path) + '">Open PDF</a></div>';
+  }).join('');
+}
+</script>
+</body>
+</html>
